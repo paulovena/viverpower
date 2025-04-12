@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  viverpower-api:
+    build: ./api
+    env_file:
+      - .env
+    networks:
+      - vivernet
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.viverpower.rule=Host(`viverpower.serverviver.cloud`)"
+        - "traefik.http.routers.viverpower.entrypoints=websecure"
+        - "traefik.http.routers.viverpower.tls.certresolver=leresolver"
+
+  viverpower-dashboard:
+    build: ./dashboard
+    env_file:
+      - .env
+    networks:
+      - vivernet
+    deploy:
+      labels:
+        - "traefik.enable=true"
+        - "traefik.http.routers.dashboard.rule=Host(`dashboard.serverviver.cloud`)"
+        - "traefik.http.routers.dashboard.entrypoints=websecure"
+        - "traefik.http.routers.dashboard.tls.certresolver=leresolver"
+
+networks:
+  vivernet:
+    external: true
+    name: vivernet
