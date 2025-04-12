@@ -1,7 +1,10 @@
 version: "3.7"
+
 services:
   viverpower-api:
-    build: ./api
+    build:
+      context: https://github.com/SEU_USUARIO/viverpower.git
+      dockerfile: api/Dockerfile
     env_file:
       - .env
     networks:
@@ -14,7 +17,9 @@ services:
         - "traefik.http.routers.viverpower.tls.certresolver=leresolver"
 
   viverpower-dashboard:
-    build: ./dashboard
+    build:
+      context: https://github.com/SEU_USUARIO/viverpower.git
+      dockerfile: dashboard/Dockerfile
     env_file:
       - .env
     networks:
